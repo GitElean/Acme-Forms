@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using System.Data.SqlClient;
 using System.Data;
 
+using AcmeForms.Models;
+
 namespace AcmeForms.Controllers
 {
     public class AcmeController : Controller
@@ -36,7 +38,7 @@ namespace AcmeForms.Controllers
 
             if (oUser.Pass == oUser.ConfirmPassword) {
             
-                oUser.Pass = Sha256(oUser.Pass);//encrypting
+                oUser.Pass = EncryptSha256(oUser.Pass);//encrypting
 
             }
             else
@@ -67,7 +69,7 @@ namespace AcmeForms.Controllers
 
             if (signed)
             {
-                return RedirectToAction("Login", "Acceso");
+                return RedirectToAction("Login", "Acme");
             }
             else
             {
@@ -80,9 +82,9 @@ namespace AcmeForms.Controllers
         [HttpPost]
         public ActionResult Login(User oUser)
         {
-            oUser.Pass = Sha256(oUser.Pass);
+            oUser.Pass = EncryptSha256(oUser.Pass);
 
-            using (SqlConnection cn = new SqlConnection(cadena))
+            using (SqlConnection cn = new SqlConnection(conect))
             {
 
                 SqlCommand cmd = new SqlCommand("validateUser", cn);
@@ -110,13 +112,13 @@ namespace AcmeForms.Controllers
         }
 
         //utility
-        public static string Sha256(string pass)
+        public static string EncryptSha256(string pass)
         {
             //using System.Text;
             //USAR LA REFERENCIA DE "System.Security.Cryptography"
 
             StringBuilder Sb = new StringBuilder();
-            using (SHA256 hash = SHA256Managed.Create())
+            using (SHA256 hash = SHA256.Create())
             {
                 Encoding enc = Encoding.UTF8;
                 byte[] result = hash.ComputeHash(enc.GetBytes(pass));
