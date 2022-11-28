@@ -5,12 +5,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Register</title>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="~/Content/CSS/Login.css" rel="stylesheet" />
+
 </head>
 <body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <!-- Tabs Titles -->
+            <!-- Icon -->
+            <h1>Acme</h1>
 
+            <!-- Login Form -->
+            <form action="@Url.Action("Register","Acme")" method="post">
+                <input type="text" id="login" class="fadeIn second" name="Email" placeholder="usuario">
+                <input type="password" id="password" class="fadeIn third" name="Pass" placeholder="contrase&ntilde;a">
+                <input type="password" id="password" class="fadeIn third" name="ConfirmPassword" placeholder="confirmar contrase&ntilde;a">
+
+                <input type="submit" class="fadeIn fourth" value="Registrate">
+            </form>
+
+            <!-- Remind Passowrd -->
+            <div id="formFooter">
+                <a class="underlineHover" href="@Url.Action("Login","Acme")">Inicia Sesion</a>
+            </div>
+
+        </div>
+    </div>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
 </html>
